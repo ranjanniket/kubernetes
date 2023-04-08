@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kafka-kowl
+  namespace: kafka
+  labels:
+    kafka: ui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kafka-kowl
+  template:
+    metadata:
+      labels:
+        app: kafka-kowl
+    spec:
+      containers:
+      - name: kowl-ui
+        image: quay.io/cloudhut/kowl:master
+        env:
+        - name: KAFKA_BROKERS
+          value: 10.111.151.145:9098
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kowl
+  namespace: kafka
+spec:
+  selector:
+    app: kafka-kowl
+  ports:
+  - name: http
+    port: 8080
+    targetPort: 8080
+    nodePort: 31006
+  type: NodePort
+
