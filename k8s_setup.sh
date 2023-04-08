@@ -56,3 +56,6 @@ sudo curl https://docs.projectcalico.org/manifests/calico-typha.yaml -o calico.y
 kubectl apply -f calico.yaml
 echo "-------------------------------------------------------------"
 echo  "Done........"
+kubectl get nodes
+echo "-------------------------------------------------------------"
+kubectl get pods -A
